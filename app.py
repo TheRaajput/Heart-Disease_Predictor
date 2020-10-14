@@ -37,7 +37,7 @@ def predict():
     resultDB = res[0]
     with sqlite3.connect('dataset.db') as con:
         cur = con.cursor()
-        cur.execute("INSERT into Heartdisease(age,gender,chestPain,bloodPressure,cholestrol,bsugar,ecg,heartRate,cPain,STdepression,slopeST,majorVessel,ThalScore, result) values (?,?,?,?,?,?,?,?,?,?,?,?,?)", (age,gender,chestPain,bloodPressure,cholestrol,bsugar,ecg,heartRate,cPain,STdepression,slopeST,majorVessel,ThalScore, resultDB))
+        cur.execute("INSERT into Heartdisease(age,gender,chestPain,bloodPressure,cholestrol,bsugar,ecg,heartRate,cPain,STdepression,slopeST,majorVessel,ThalScore, result) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (age,gender,chestPain,bloodPressure,cholestrol,bsugar,ecg,heartRate,cPain,STdepression,slopeST,majorVessel,ThalScore, resultDB))
         con.commit()
     con.close()
 
