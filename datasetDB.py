@@ -12,5 +12,4 @@ print("Table created")
 
 # result = cur.fetchall()
 # print(result)
-
 con.close()
