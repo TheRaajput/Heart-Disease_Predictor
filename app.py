@@ -4,11 +4,11 @@ import numpy as np
 from sklearn.preprocessing import StandardScaler
 import tensorflow 
 from tensorflow.keras.models import load_model
+import sqlite3
 
 app = Flask(__name__)
 skl = pickle.load(open('scaler.pkl','rb'))
 model = load_model('Model.h5')
-
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -34,6 +34,13 @@ def predict():
     x = skl.transform(x)
     y = model.predict(x)
     res = y[0]
+    resultDB = res[0]
+    with sqlite3.connect('dataset.db') as con:
+        cur = con.cursor()
+        cur.execute("INSERT into Heartdisease(age,gender,chestPain,bloodPressure,cholestrol,bsugar,ecg,heartRate,cPain,STdepression,slopeST,majorVessel,ThalScore, result) values (?,?,?,?,?,?,?,?,?,?,?,?,?)", (age,gender,chestPain,bloodPressure,cholestrol,bsugar,ecg,heartRate,cPain,STdepression,slopeST,majorVessel,ThalScore, resultDB))
+        con.commit()
+    con.close()
+
     if(res[0]<0.5):
         return render_template('index.html', prediction="You are safe!!..Chances are: {}".format(res[0]*100))
     else:
